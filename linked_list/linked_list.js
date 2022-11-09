@@ -33,6 +33,62 @@ function LinkedList(){
             }
         }
     }
+    
+
+
+    this.getPreviousNode = function(value){
+        let currentNode = this.headNode;
+
+        while(currentNode.next !== null && currentNode.next.value !== value){
+            currentNode = currentNode.next;
+        }
+
+        return currentNode
+
+
+    }
+
+    this.deleteNode = function(value){
+
+       
+
+        if(this.tailNode.value === value){
+            let previousNode = this.getPreviousNode(value);
+            previousNode.next = null;
+        }
+
+        let currentNode = this.headNode;
+        while(currentNode.next !== null){
+            if(currentNode.value === value){
+                let previousNode = this.getPreviousNode(value);
+
+                previousNode.next = currentNode.next
+            }
+
+            currentNode = currentNode.next;
+
+        }
+
+        return this;
+
+    }
+
+    this.prependNode = function(value){
+        let newNode = new Node(value)
+        
+        if(this.headNode === null){
+            this.headNode = newNode
+            this.tailNode = newNode;
+            
+            return this
+        }
+        newNode.next = this.headNode
+        this.headNode = newNode
+
+        return this;
+       
+
+    }
 
     /**
      * Adds a new node to the end of the linked list
@@ -64,8 +120,12 @@ cars.appendNode('volvo');
 cars.appendNode('passat');
 cars.appendNode('camry');
 
-
+cars.deleteNode("camry");
 cars.printList();
+
+// console.log(cars.getPreviousNode("passat"));
+ 
+
 
 console.log(cars.toArray())
 
